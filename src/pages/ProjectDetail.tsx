@@ -44,6 +44,7 @@ const ProjectDetail = () => {
       The system integrates with multiple cloud providers and supports various deployment strategies including canary releases and blue-green deployments. It includes comprehensive reporting and analytics to track deployment success rates and performance metrics.`,
       technologies: ['GitLab CI', 'Docker', 'AWS', 'Terraform', 'Ansible', 'SonarQube'],
       githubUrl: 'https://github.com',
+      liveUrl: 'https://pipeline-demo.com',
       timeline: '4 months',
       team: '3 developers',
       challenges: [
