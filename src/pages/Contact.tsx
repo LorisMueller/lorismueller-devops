@@ -1,12 +1,13 @@
-
 import Navigation from '@/components/Navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Mail, User, MousePointer2 } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Contact = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,7 +24,7 @@ const Contact = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Particle system
+    // Particle system with design-matching colors
     const particles: Array<{
       x: number;
       y: number;
@@ -33,26 +34,35 @@ const Contact = () => {
       color: string;
       life: number;
       maxLife: number;
+      angle: number;
+      speed: number;
     }> = [];
 
-    const colors = ['#4A90E2', '#FF6B35', '#7B68EE', '#50C878', '#FFD700'];
-    let mouse = { x: 0, y: 0 };
-    let isMouseInside = false;
+    // Using your design colors - primary and secondary
+    const colors = [
+      'rgba(74, 144, 226, 0.8)',  // primary
+      'rgba(255, 99, 71, 0.8)',   // secondary/accent
+      'rgba(74, 144, 226, 0.4)',  // primary faded
+      'rgba(255, 99, 71, 0.4)',   // secondary faded
+      'rgba(255, 255, 255, 0.6)'  // white accent
+    ];
 
-    // Create particle
+    let mouse = { x: 0, y: 0 };
+
+    // Create particle with more elegant movement
     const createParticle = (x: number, y: number) => {
-      for (let i = 0; i < 3; i++) {
-        particles.push({
-          x: x + (Math.random() - 0.5) * 20,
-          y: y + (Math.random() - 0.5) * 20,
-          vx: (Math.random() - 0.5) * 4,
-          vy: (Math.random() - 0.5) * 4,
-          size: Math.random() * 8 + 2,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          life: 60,
-          maxLife: 60
-        });
-      }
+      particles.push({
+        x: x + (Math.random() - 0.5) * 30,
+        y: y + (Math.random() - 0.5) * 30,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2,
+        size: Math.random() * 4 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        life: 120,
+        maxLife: 120,
+        angle: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.02 + 0.01
+      });
     };
 
     // Mouse events
@@ -61,75 +71,81 @@ const Contact = () => {
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
       
-      if (Math.random() < 0.3) {
+      if (Math.random() < 0.2) {
         createParticle(mouse.x, mouse.y);
       }
     };
 
-    const handleMouseEnter = () => {
-      isMouseInside = true;
-    };
-
-    const handleMouseLeave = () => {
-      isMouseInside = false;
-    };
-
     canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseenter', handleMouseEnter);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
 
     // Animation loop
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      // Clear canvas with subtle background
+      ctx.fillStyle = 'rgba(8, 8, 8, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Update and draw particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const particle = particles[i];
         
-        // Update position
-        particle.x += particle.vx;
-        particle.y += particle.vy;
+        // Update position with floating motion
+        particle.angle += particle.speed;
+        particle.x += particle.vx + Math.sin(particle.angle) * 0.5;
+        particle.y += particle.vy + Math.cos(particle.angle) * 0.5;
         particle.life--;
         
-        // Apply gravity and mouse attraction
-        if (isMouseInside) {
-          const dx = mouse.x - particle.x;
-          const dy = mouse.y - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < 100) {
-            particle.vx += dx * 0.0005;
-            particle.vy += dy * 0.0005;
-          }
+        // Gentle attraction to mouse
+        const dx = mouse.x - particle.x;
+        const dy = mouse.y - particle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 150 && distance > 0) {
+          const force = (150 - distance) / 150 * 0.001;
+          particle.vx += dx * force;
+          particle.vy += dy * force;
         }
         
-        particle.vy += 0.1; // gravity
-        particle.vx *= 0.99; // friction
-        particle.vy *= 0.99;
+        // Apply gentle friction
+        particle.vx *= 0.995;
+        particle.vy *= 0.995;
 
-        // Draw particle
+        // Draw particle with glow effect
         const alpha = particle.life / particle.maxLife;
+        const size = particle.size * alpha;
+        
         ctx.save();
         ctx.globalAlpha = alpha;
-        ctx.fillStyle = particle.color;
+        
+        // Create gradient for glow effect
+        const gradient = ctx.createRadialGradient(
+          particle.x, particle.y, 0,
+          particle.x, particle.y, size * 3
+        );
+        gradient.addColorStop(0, particle.color);
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        
+        ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size * alpha, 0, Math.PI * 2);
+        ctx.arc(particle.x, particle.y, size * 3, 0, Math.PI * 2);
         ctx.fill();
         
-        // Add glow effect
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = particle.color;
+        // Draw core
+        ctx.fillStyle = particle.color;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
         ctx.fill();
+        
         ctx.restore();
 
         // Remove dead particles
-        if (particle.life <= 0 || particle.y > canvas.height + 50) {
+        if (particle.life <= 0 || 
+            particle.x < -50 || particle.x > canvas.width + 50 ||
+            particle.y < -50 || particle.y > canvas.height + 50) {
           particles.splice(i, 1);
         }
       }
 
-      // Draw connections between nearby particles
+      // Draw elegant connections
       ctx.strokeStyle = 'rgba(74, 144, 226, 0.1)';
       ctx.lineWidth = 1;
       for (let i = 0; i < particles.length; i++) {
@@ -138,11 +154,15 @@ const Contact = () => {
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 80) {
+          if (distance < 100) {
+            const alpha = (100 - distance) / 100 * 0.3;
+            ctx.save();
+            ctx.globalAlpha = alpha;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
+            ctx.restore();
           }
         }
       }
@@ -152,23 +172,21 @@ const Contact = () => {
 
     animate();
 
-    // Auto-generate some particles
+    // Auto-generate ambient particles
     const autoGenerate = () => {
-      if (particles.length < 20) {
+      if (particles.length < 15) {
         createParticle(
           Math.random() * canvas.width,
-          -10
+          Math.random() * canvas.height
         );
       }
     };
 
-    const autoInterval = setInterval(autoGenerate, 500);
+    const autoInterval = setInterval(autoGenerate, 1000);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseenter', handleMouseEnter);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
       clearInterval(autoInterval);
     };
   }, []);
@@ -191,28 +209,40 @@ const Contact = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Interactive Particle Canvas */}
-              <Card className="p-8 bg-card border-border/20 animate-slide-in-left overflow-hidden">
+              {/* Interactive Design Canvas */}
+              <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/20 animate-slide-in-left overflow-hidden">
                 <div className="flex items-center space-x-3 mb-6">
                   <MousePointer2 className="w-6 h-6 text-primary" />
-                  <h2 className="text-2xl font-semibold text-primary">Interactive Playground</h2>
+                  <h2 className="text-2xl font-semibold text-primary">Interactive Experience</h2>
                 </div>
                 
-                <div className="relative bg-black rounded-lg overflow-hidden" style={{ height: '400px' }}>
+                <div 
+                  className="relative bg-gradient-to-br from-card to-muted/20 rounded-lg overflow-hidden border border-border/10"
+                  style={{ height: '400px' }}
+                  onMouseEnter={() => setIsHovering(true)}
+                  onMouseLeave={() => setIsHovering(false)}
+                >
                   <canvas
                     ref={canvasRef}
-                    className="w-full h-full cursor-crosshair"
-                    style={{ background: 'linear-gradient(45deg, #0a0a0a, #1a1a2e)' }}
+                    className="w-full h-full cursor-crosshair transition-opacity duration-300"
                   />
-                  <div className="absolute bottom-4 left-4 text-white/60 text-sm">
-                    Move your mouse to create particles ✨
+                  
+                  {/* Elegant overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/20 via-transparent to-transparent pointer-events-none" />
+                  
+                  <div className="absolute bottom-4 left-4 text-muted-foreground text-sm font-medium">
+                    Hover to create interactive particles ✨
                   </div>
+                  
+                  {/* Floating elements */}
+                  <div className={`absolute top-6 right-6 w-3 h-3 bg-primary/60 rounded-full transition-all duration-1000 ${isHovering ? 'animate-pulse' : ''}`} />
+                  <div className={`absolute top-12 right-12 w-2 h-2 bg-secondary/60 rounded-full transition-all duration-1000 delay-300 ${isHovering ? 'animate-pulse' : ''}`} />
                 </div>
                 
                 <p className="text-sm text-muted-foreground mt-4">
-                  This interactive particle system demonstrates the kind of engaging, 
-                  dynamic experiences I can create. Each particle responds to your mouse 
-                  movement with physics-based animations.
+                  This interactive experience showcases the kind of engaging, 
+                  elegant interfaces I create. Each element responds naturally 
+                  to your interaction with smooth, physics-based animations.
                 </p>
               </Card>
 
@@ -268,21 +298,6 @@ const Contact = () => {
 
                   </div>
                 </Card>
-
-                {/* <Card className="p-6 bg-card border-border/20 card-hover">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <FileText className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold">Resume</h3>
-                      <p className="text-muted-foreground">Download my latest CV</p>
-                    </div>
-                  </div>
-                  <Button variant="outline" className="w-full border-primary/30 hover:border-primary hover:bg-primary/10">
-                    Download Resume
-                  </Button>
-                </Card> */}
 
                 <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 border-border/20">
                   <h3 className="text-lg font-semibold mb-2">Let's Build Something Great</h3>
