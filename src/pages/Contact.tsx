@@ -1,195 +1,32 @@
+
 import Navigation from '@/components/Navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mail, User, MousePointer2 } from 'lucide-react';
+import { Mail, User, Zap, ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const Contact = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [pulseActive, setPulseActive] = useState(false);
 
+  // Trigger pulse animation periodically
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const interval = setInterval(() => {
+      setPulseActive(true);
+      setTimeout(() => setPulseActive(false), 2000);
+    }, 5000);
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Set canvas size
-    const resizeCanvas = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    // Particle system with design-matching colors
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      color: string;
-      life: number;
-      maxLife: number;
-      angle: number;
-      speed: number;
-    }> = [];
-
-    // Using your design colors - primary and secondary
-    const colors = [
-      'rgba(74, 144, 226, 0.8)',  // primary
-      'rgba(255, 99, 71, 0.8)',   // secondary/accent
-      'rgba(74, 144, 226, 0.4)',  // primary faded
-      'rgba(255, 99, 71, 0.4)',   // secondary faded
-      'rgba(255, 255, 255, 0.6)'  // white accent
-    ];
-
-    let mouse = { x: 0, y: 0 };
-
-    // Create particle with more elegant movement
-    const createParticle = (x: number, y: number) => {
-      particles.push({
-        x: x + (Math.random() - 0.5) * 30,
-        y: y + (Math.random() - 0.5) * 30,
-        vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2,
-        size: Math.random() * 4 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        life: 120,
-        maxLife: 120,
-        angle: Math.random() * Math.PI * 2,
-        speed: Math.random() * 0.02 + 0.01
-      });
-    };
-
-    // Mouse events
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-      
-      if (Math.random() < 0.2) {
-        createParticle(mouse.x, mouse.y);
-      }
-    };
-
-    canvas.addEventListener('mousemove', handleMouseMove);
-
-    // Animation loop
-    const animate = () => {
-      // Clear canvas with subtle background
-      ctx.fillStyle = 'rgba(8, 8, 8, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Update and draw particles
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const particle = particles[i];
-        
-        // Update position with floating motion
-        particle.angle += particle.speed;
-        particle.x += particle.vx + Math.sin(particle.angle) * 0.5;
-        particle.y += particle.vy + Math.cos(particle.angle) * 0.5;
-        particle.life--;
-        
-        // Gentle attraction to mouse
-        const dx = mouse.x - particle.x;
-        const dy = mouse.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 150 && distance > 0) {
-          const force = (150 - distance) / 150 * 0.001;
-          particle.vx += dx * force;
-          particle.vy += dy * force;
-        }
-        
-        // Apply gentle friction
-        particle.vx *= 0.995;
-        particle.vy *= 0.995;
-
-        // Draw particle with glow effect
-        const alpha = particle.life / particle.maxLife;
-        const size = particle.size * alpha;
-        
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        
-        // Create gradient for glow effect
-        const gradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, size * 3
-        );
-        gradient.addColorStop(0, particle.color);
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, size * 3, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Draw core
-        ctx.fillStyle = particle.color;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
-        ctx.fill();
-        
-        ctx.restore();
-
-        // Remove dead particles
-        if (particle.life <= 0 || 
-            particle.x < -50 || particle.x > canvas.width + 50 ||
-            particle.y < -50 || particle.y > canvas.height + 50) {
-          particles.splice(i, 1);
-        }
-      }
-
-      // Draw elegant connections
-      ctx.strokeStyle = 'rgba(74, 144, 226, 0.1)';
-      ctx.lineWidth = 1;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < 100) {
-            const alpha = (100 - distance) / 100 * 0.3;
-            ctx.save();
-            ctx.globalAlpha = alpha;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-            ctx.restore();
-          }
-        }
-      }
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    // Auto-generate ambient particles
-    const autoGenerate = () => {
-      if (particles.length < 15) {
-        createParticle(
-          Math.random() * canvas.width,
-          Math.random() * canvas.height
-        );
-      }
-    };
-
-    const autoInterval = setInterval(autoGenerate, 1000);
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      clearInterval(autoInterval);
-    };
+    return () => clearInterval(interval);
   }, []);
+
+  const skillBubbles = [
+    { label: 'React', x: 20, y: 30, delay: 0 },
+    { label: 'TypeScript', x: 70, y: 20, delay: 200 },
+    { label: 'Node.js', x: 15, y: 70, delay: 400 },
+    { label: 'Docker', x: 80, y: 60, delay: 600 },
+    { label: 'AWS', x: 45, y: 50, delay: 800 },
+    { label: 'DevOps', x: 60, y: 80, delay: 1000 },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -209,41 +46,113 @@ const Contact = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Interactive Design Canvas */}
+              {/* Interactive Tech Stack Visualization */}
               <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/20 animate-slide-in-left overflow-hidden">
-                <div className="flex items-center space-x-3 mb-6">
-                  <MousePointer2 className="w-6 h-6 text-primary" />
-                  <h2 className="text-2xl font-semibold text-primary">Interactive Experience</h2>
-                </div>
-                
-                <div 
-                  className="relative bg-gradient-to-br from-card to-muted/20 rounded-lg overflow-hidden border border-border/10"
-                  style={{ height: '400px' }}
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
-                >
-                  <canvas
-                    ref={canvasRef}
-                    className="w-full h-full cursor-crosshair transition-opacity duration-300"
-                  />
-                  
-                  {/* Elegant overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/20 via-transparent to-transparent pointer-events-none" />
-                  
-                  <div className="absolute bottom-4 left-4 text-muted-foreground text-sm font-medium">
-                    Hover to create interactive particles ✨
+                <div className="relative">
+                  <div 
+                    className="relative bg-gradient-to-br from-primary/5 via-card to-secondary/5 rounded-xl border border-border/10 overflow-hidden"
+                    style={{ height: '400px' }}
+                  >
+                    {/* Animated Background Grid */}
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="grid grid-cols-8 grid-rows-8 h-full w-full">
+                        {Array.from({ length: 64 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className={`border border-primary/10 transition-all duration-1000 ${
+                              pulseActive ? 'bg-primary/5' : ''
+                            }`}
+                            style={{ 
+                              animationDelay: `${i * 50}ms`,
+                              animation: pulseActive ? 'pulse 2s ease-in-out' : 'none'
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Floating Tech Bubbles */}
+                    <div className="absolute inset-0 p-6">
+                      {skillBubbles.map((skill, index) => (
+                        <div
+                          key={skill.label}
+                          className={`absolute transform transition-all duration-500 cursor-pointer ${
+                            hoveredIndex === index ? 'scale-110 z-10' : 'scale-100'
+                          }`}
+                          style={{
+                            left: `${skill.x}%`,
+                            top: `${skill.y}%`,
+                            animationDelay: `${skill.delay}ms`
+                          }}
+                          onMouseEnter={() => setHoveredIndex(index)}
+                          onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                          <div className={`
+                            relative px-4 py-2 rounded-full backdrop-blur-sm border transition-all duration-300
+                            ${hoveredIndex === index 
+                              ? 'bg-primary/20 border-primary/40 shadow-lg shadow-primary/20' 
+                              : 'bg-card/60 border-border/30'
+                            }
+                          `}>
+                            <span className={`text-sm font-medium transition-colors duration-300 ${
+                              hoveredIndex === index ? 'text-primary' : 'text-foreground'
+                            }`}>
+                              {skill.label}
+                            </span>
+                            
+                            {/* Glow effect on hover */}
+                            {hoveredIndex === index && (
+                              <div className="absolute inset-0 rounded-full bg-primary/10 animate-ping" />
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Central Connection Hub */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <div className={`
+                        w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary 
+                        flex items-center justify-center transition-all duration-500
+                        ${pulseActive ? 'scale-110 shadow-lg shadow-primary/30' : 'scale-100'}
+                      `}>
+                        <Zap className="w-8 h-8 text-white" />
+                      </div>
+                      
+                      {/* Connecting Lines */}
+                      {skillBubbles.map((skill, index) => (
+                        <div
+                          key={`line-${index}`}
+                          className={`absolute w-px bg-gradient-to-r from-primary/20 to-transparent transition-opacity duration-300 ${
+                            hoveredIndex === index ? 'opacity-60' : 'opacity-20'
+                          }`}
+                          style={{
+                            height: `${Math.sqrt(Math.pow(skill.x - 50, 2) + Math.pow(skill.y - 50, 2)) * 2}px`,
+                            transformOrigin: 'top',
+                            transform: `rotate(${Math.atan2(skill.y - 50, skill.x - 50) * 180 / Math.PI + 90}deg)`,
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Floating Action */}
+                    <div className="absolute bottom-6 right-6">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-muted-foreground hover:text-primary transition-colors group"
+                      >
+                        Explore Tech Stack
+                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </div>
                   </div>
                   
-                  {/* Floating elements */}
-                  <div className={`absolute top-6 right-6 w-3 h-3 bg-primary/60 rounded-full transition-all duration-1000 ${isHovering ? 'animate-pulse' : ''}`} />
-                  <div className={`absolute top-12 right-12 w-2 h-2 bg-secondary/60 rounded-full transition-all duration-1000 delay-300 ${isHovering ? 'animate-pulse' : ''}`} />
+                  <p className="text-sm text-muted-foreground mt-4">
+                    Hover over the technologies to see the interactive connections.
+                    This represents the integrated approach I take with modern development.
+                  </p>
                 </div>
-                
-                <p className="text-sm text-muted-foreground mt-4">
-                  This interactive experience showcases the kind of engaging, 
-                  elegant interfaces I create. Each element responds naturally 
-                  to your interaction with smooth, physics-based animations.
-                </p>
               </Card>
 
               {/* Contact Information */}
