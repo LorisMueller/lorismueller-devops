@@ -40,7 +40,7 @@ const Navigation = () => {
             to="/" 
             className="text-2xl font-bold text-gradient hover:scale-105 transition-transform"
           >
-            DevOps.dev
+            mueller-loris.ch
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">

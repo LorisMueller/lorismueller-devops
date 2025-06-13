@@ -6,81 +6,62 @@ import { Calendar, MapPin, Building } from 'lucide-react';
 const Career = () => {
   const experiences = [
     {
-      title: 'Senior DevOps Engineer',
-      company: 'Tech Innovations Inc.',
-      location: 'San Francisco, CA',
-      period: '2022 - Present',
+      title: 'DevOps Engineer I (Young Professional Program)',
+      company: 'Swisscom',
+      location: 'Zürich, Switzerland',
+      period: '2024 – 2025',
       type: 'Full-time',
-      description: 'Leading DevOps initiatives for a team of 20+ developers, implementing cloud-native solutions and reducing deployment time by 75%. Architecting scalable infrastructure on AWS serving 1M+ users.',
+      description: 'Continued in the same senior team after completing the apprenticeship, with a focus on DevOps engineering and backend development. Took ownership of automation solutions and contributed across multiple complex systems.',
       achievements: [
-        'Reduced deployment time from 2 hours to 30 minutes',
-        'Implemented monitoring solutions reducing downtime by 90%',
-        'Led migration to microservices architecture',
-        'Mentored 5 junior developers in DevOps practices'
+        'Designed and developed an automation application for onboarding enterprise customers — from planning to deployment',
+        'Deepened expertise in backend development with Spring Boot',
+        'Successfully onboarded into a variety of internal products and systems within a short time',
+        'Continued collaboration with a senior engineering team in a fast-paced DevOps environment'
       ],
-      technologies: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'GitLab CI/CD']
-    },
+      technologies: ['Spring Boot', 'Java', 'Jenkins', 'GitLab CI/CD', 'Angular']
+    },    
     {
-      title: 'DevOps Engineer',
-      company: 'Digital Solutions Ltd.',
-      location: 'New York, NY',
-      period: '2020 - 2022',
-      type: 'Full-time',
-      description: 'Developed and maintained CI/CD pipelines for multiple projects, automated infrastructure provisioning, and implemented monitoring and logging solutions for improved system reliability.',
+      title: 'Apprentice Application Developer',
+      company: 'Swisscom',
+      location: 'Zürich, Switzerland',
+      period: '2020 - 2024',
+      type: 'Apprenticeship',
+      description: 'Started my software engineering journey during a four-year apprenticeship at Swisscom. Initially focused on web development using modern frameworks, later expanded into backend development and DevOps engineering.',
       achievements: [
-        'Automated infrastructure provisioning saving 40 hours/week',
-        'Implemented comprehensive monitoring stack',
-        'Reduced production incidents by 60%',
-        'Created standardized deployment procedures'
+        'Gained foundational programming skills and experience in real-world projects',
+        'Worked on process automation solutions to improve internal workflows',
+        'Led a team of apprentices, overseeing development tasks and acting as the main contact for customer interactions',
+        'Collaborated with a senior engineering team as a DevOps engineer, with a focus on CI/CD, Jenkins, and Spring Boot backend development'
       ],
-      technologies: ['Jenkins', 'Docker', 'AWS', 'Ansible', 'Prometheus']
-    },
-    {
-      title: 'Fullstack Developer',
-      company: 'StartupX',
-      location: 'Austin, TX',
-      period: '2019 - 2020',
-      type: 'Full-time',
-      description: 'Built and maintained web applications using React and Node.js, collaborated with cross-functional teams to deliver high-quality software products, and introduced DevOps practices to the development workflow.',
-      achievements: [
-        'Developed 3 major web applications from scratch',
-        'Introduced automated testing increasing code coverage to 85%',
-        'Optimized application performance by 40%',
-        'Implemented first CI/CD pipeline for the company'
-      ],
-      technologies: ['React', 'Node.js', 'MongoDB', 'Docker', 'AWS']
-    },
-    {
-      title: 'Junior Developer',
-      company: 'WebDev Agency',
-      location: 'Remote',
-      period: '2018 - 2019',
-      type: 'Full-time',
-      description: 'Started my career developing websites and small applications, learning modern web technologies and best practices. Gained foundational experience in both frontend and backend development.',
-      achievements: [
-        'Completed 15+ client projects successfully',
-        'Learned and applied modern JavaScript frameworks',
-        'Contributed to open source projects',
-        'Achieved 98% client satisfaction rating'
-      ],
-      technologies: ['JavaScript', 'React', 'PHP', 'MySQL', 'WordPress']
+      technologies: ['JavaScript', 'React', 'HTML/CSS', 'Spring Boot', 'Jenkins', 'GitLab CI/CD', 'Docker']
     }
   ];
 
   const education = [
     {
-      degree: 'Bachelor of Science in Computer Science',
-      school: 'University of Technology',
-      location: 'California, USA',
-      period: '2014 - 2018',
-      description: 'Focused on software engineering, algorithms, and system design. Graduated with honors and completed a senior project on distributed systems.',
+      degree: 'Swiss-certified Application Developer (EFZ)',
+      school: 'Swisscom (Berufsbildungsschule Winterthur)',
+      location: 'Zürich, Switzerland',
+      period: '2020 - 2024',
+      description: 'Focused on software engineering, web development, and devops engineering. Graduated with honors and completed a senior project on distributed systems.',
       achievements: [
-        'Graduated Summa Cum Laude (GPA: 3.9/4.0)',
-        'Senior project on microservices architecture',
-        'President of Computer Science Student Association',
-        'Published research paper on cloud computing'
+        'Final thesis awarded a grade of 5.9 (on a 6-point Swiss grading scale)',
+        'Leader of an apprentice team',
+        'Developed strong DevOps skills as part of a high-level senior team'
       ]
-    }
+    },
+    {
+      degree: 'Federal Vocational Baccalaureate (Berufsmaturität)',
+      school: 'Berufsbildungsschule Winterthur',
+      location: 'Zürich, Switzerland',
+      period: '2020 - 2024',
+      description: 'Completed the Swiss Federal Vocational Baccalaureate alongside the apprenticeship, with a focus on technical and scientific subjects.',
+      achievements: [
+        'Graduated with an overall grade of 5.3 (on a 6-point Swiss grading scale)',
+        'Final thesis on the effect of caffeine in sports awarded a grade of 5.7',
+        'Thesis recognized as one of the best in the graduating class'
+      ]
+    }    
   ];
 
   return (

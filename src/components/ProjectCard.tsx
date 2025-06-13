@@ -51,7 +51,7 @@ const ProjectCard = ({
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+        <h3 className="text-xl font-semibold mb-2 group-hover:text-secondary transition-colors">
           {title}
         </h3>
         <p className="text-muted-foreground mb-4 line-clamp-3">
@@ -62,7 +62,7 @@ const ProjectCard = ({
           {technologies.slice(0, 3).map((tech) => (
             <span
               key={tech}
-              className="px-2 py-1 text-xs bg-primary/10 text-primary rounded-md border border-primary/20"
+              className="px-2 py-1 text-xs bg-secondary/10 text-secondary rounded-md border border-primary/20"
             >
               {tech}
             </span>

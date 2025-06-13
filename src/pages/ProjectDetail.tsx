@@ -10,59 +10,110 @@ const ProjectDetail = () => {
 
   // Mock project data - in a real app, this would come from an API or database
   const projectData = {
-    'microservices-platform': {
-      title: 'Microservices Platform',
-      description: 'A comprehensive microservices platform designed for high-scale applications with advanced monitoring, auto-scaling, and service discovery capabilities.',
-      longDescription: `This project represents a complete microservices ecosystem built from the ground up. The platform handles millions of requests daily and automatically scales based on demand. It includes comprehensive monitoring, logging, and alerting systems that provide real-time insights into system performance.
-
-      The architecture is designed with resilience and scalability in mind, featuring circuit breakers, retry mechanisms, and graceful degradation. Each service is containerized and can be deployed independently, enabling rapid development cycles and zero-downtime deployments.`,
-      technologies: ['React', 'Node.js', 'Docker', 'Kubernetes', 'MongoDB', 'Redis', 'Grafana', 'Prometheus'],
+    'api-onboarding-automation': {
+      title: 'API Onboarding Automation',
+      description: 'Automated onboarding service for large-scale business clients, integrating multiple API and ticketing systems into a unified, secure process.',
+      longDescription: `This microservice automated the previously manual onboarding process for high-profile business clients (e.g., banks) into various API-based ticketing systems. Before this project, client data had to be manually entered multiple times for each system — a time-consuming and error-prone process.
+  
+      I was responsible for designing and implementing the complete automation logic: REST APIs, job scheduling, data handling, and integration with multiple internal systems. The service was part of a broader microservices architecture and backed by a MariaDB database. The planning phase included in-depth requirements gathering and architectural design.
+  
+      The project also involved a robust CI/CD pipeline using GitLab and Jenkins, as well as extensive automated and end-to-end testing. It went into production after 5–8 months of development and significantly reduced onboarding effort for internal teams.`,
+      technologies: ['Java', 'Spring Boot', 'MariaDB', 'Jenkins', 'GitLab CI', 'REST'],
       githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.com',
-      timeline: '6 months',
-      team: '5 developers',
+      liveUrl: '',
+      timeline: '6-7 months',
+      team: '1 developer (project lead within a larger team)',
       challenges: [
-        'Implementing service mesh for secure inter-service communication',
-        'Designing auto-scaling policies for optimal resource utilization',
-        'Creating comprehensive monitoring and alerting systems',
-        'Ensuring data consistency across distributed services'
+        'Handling varying data structures from multiple external ticketing systems',
+        'Ensuring secure storage and handling of sensitive onboarding data',
+        'Maintaining extensibility for future clients and API integrations'
       ],
       features: [
-        'Auto-scaling based on custom metrics',
-        'Service discovery and load balancing',
-        'Real-time monitoring and alerting',
-        'Distributed tracing and logging',
-        'Blue-green deployment strategy',
-        'API rate limiting and throttling'
+        'End-to-end onboarding automation across multiple ticketing systems',
+        'Unified data flow and transformation logic',
+        'Custom scheduling of onboarding tasks',
+        'Extensive automated and manual testing',
+        'Robust CI/CD pipeline with Jenkins and GitLab',
+        'Secure handling of sensitive client information'
       ]
     },
-    'ci-cd-pipeline': {
-      title: 'CI/CD Pipeline Automation',
-      description: 'Advanced CI/CD pipeline that reduced deployment time by 80% and eliminated manual deployment errors.',
-      longDescription: `This comprehensive CI/CD solution transforms the software delivery process through intelligent automation. The pipeline includes automated testing at multiple levels, security scanning, performance testing, and automated rollback capabilities.
+    'hebamme-website': {
+      title: 'Midwife Portfolio Website',
+      description: 'Responsive multi-page website for a self-employed midwife, built with semantic HTML and custom CSS before the rise of modern AI tooling.',
+      longDescription: `This project involved designing and developing a professional website for a self-employed midwife to present her services, expertise, and contact information. The site features multiple sections including a detailed services overview, helpful resources (books, links, networks), and an easy way for clients to get in touch.
 
-      The system integrates with multiple cloud providers and supports various deployment strategies including canary releases and blue-green deployments. It includes comprehensive reporting and analytics to track deployment success rates and performance metrics.`,
-      technologies: ['GitLab CI', 'Docker', 'AWS', 'Terraform', 'Ansible', 'SonarQube'],
+    I handled everything from concept and layout to frontend implementation and deployment. The visual identity — including the logo and printed materials like ID cards — was designed by me to ensure consistent branding. The site is fully responsive and optimized for both mobile and desktop devices.`,
+      technologies: ['HTML', 'CSS'],
       githubUrl: 'https://github.com',
-      liveUrl: 'https://pipeline-demo.com',
-      timeline: '4 months',
-      team: '3 developers',
+      liveUrl: 'https://www.undg.ch',
+      timeline: '3–4 weeks',
+      team: 'Solo project',
       challenges: [
-        'Integrating multiple testing frameworks',
-        'Implementing automated security scanning',
-        'Creating rollback mechanisms for failed deployments',
-        'Optimizing pipeline performance and resource usage'
+        'Creating a custom, clean layout without using any frontend frameworks or libraries',
+        'Ensuring accessibility and responsive behavior across all devices',
+        'Designing both the digital and print brand identity from scratch'
       ],
       features: [
-        'Automated testing and quality gates',
-        'Security vulnerability scanning',
-        'Infrastructure as Code deployment',
-        'Automated rollback on failures',
-        'Performance and load testing',
-        'Deployment analytics and reporting'
+        'Multi-page static website',
+        'Responsive design',
+        'Custom logo and branding',
+        'Clean semantic HTML and CSS',
+        'Public deployment under custom domain',
+        'Resources section with curated external content'
+      ]
+    },
+    'tenant-landlord-app': {
+      title: 'Tenant–Landlord Communication App',
+      description: 'Progressive web app to streamline communication between tenants and landlords, with multilingual support and a custom backend.',
+      longDescription: `This PWA was built for a start-up aiming to improve and simplify the interaction between tenants and landlords. The app enables structured communication, status updates, and centralized documentation for both parties.
+
+    I led the development project, acting as the main point of contact with the client and distributing tasks across the team. The frontend was built in React and connected to a custom Strapi backend, which we also set up and extended. The application supports multiple languages and was designed with scalability and user-friendliness in mind.`,
+      technologies: ['React', 'Strapi', 'TypeScript', 'PWA', 'HTML', 'CSS'],
+      githubUrl: 'https://github.com',
+      liveUrl: 'https://demo.com',
+      timeline: '3-4 months',
+      team: '3 developers (project lead)',
+      challenges: [
+        'Managing communication between frontend and dynamic backend content',
+        'Implementing multi-language support for different user roles',
+        'Balancing feature requests with tight startup timelines'
+      ],
+      features: [
+        'Multilingual interface',
+        'Role-based access for tenants and landlords',
+        'Structured messaging and issue tracking',
+        'Mobile-optimized as a Progressive Web App',
+        'Custom backend using Strapi',
+        'Admin interface for managing users and content'
+      ]
+    },
+    'drone-business-site': {
+      title: 'Drone Business Website',
+      description: 'Modern and responsive website for a professional drone services company, featuring a custom backend and dynamic content management.',
+      longDescription: `This project involved building a clean, professional online presence for a commercial drone services provider. The goal was to showcase their offering with a strong visual identity, optimized for both mobile and desktop users.
+
+    I developed the site using React for the frontend and Strapi as the backend CMS. The site allows the business to manage service descriptions, image galleries, and contact details through a simple admin panel. The design was custom-built to reflect a trustworthy and modern brand, with smooth UI and responsive behavior throughout.`,
+      technologies: ['React', 'HTML', 'CSS', 'Strapi'],
+      githubUrl: 'https://github.com',
+      liveUrl: '',
+      timeline: '3–4 weeks',
+      team: 'Solo project',
+      challenges: [
+        'Creating a business-grade layout with a smooth, responsive user experience',
+        'Integrating Strapi for dynamic content updates without developer involvement',
+        'Translating brand identity into visual design and UX'
+      ],
+      features: [
+        'Responsive, mobile-friendly layout',
+        'CMS-powered content via Strapi backend',
+        'Dynamic service listings and image galleries',
+        'Custom UI reflecting commercial branding',
+        'Optimized for performance and SEO basics',
+        'Publicly deployed under custom domain'
       ]
     }
-  };
+  }
+
 
   const project = projectData[id as keyof typeof projectData];
 
@@ -82,7 +133,7 @@ const ProjectDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
@@ -93,7 +144,7 @@ const ProjectDetail = () => {
                   Back to Projects
                 </Button>
               </Link>
-              
+
               <h1 className="text-5xl font-bold mb-6">
                 {project.title}
               </h1>

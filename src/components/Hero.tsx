@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,34 +30,38 @@ const Hero = () => {
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'animate-slide-up' : ''}`}>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-gradient">DevOps</span>
+            <span className="text-gradient">DevOps Engineer</span>
             <br />
-            <span className="text-foreground">Engineer</span>
+            <span className="block mt-4 text-foreground">Loris Müller</span>
           </h1>
         </div>
 
         <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'animate-slide-up' : ''}`}>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Fullstack Developer & DevOps Specialist crafting scalable solutions 
+            Fullstack Developer & DevOps Specialist crafting scalable solutions
             and building robust infrastructure for the modern web.
           </p>
         </div>
 
         <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'animate-slide-up' : ''}`}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 glow-primary"
-            >
-              View My Work
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-primary/30 hover:border-primary hover:bg-primary/10 px-8 py-3"
-            >
-              Get In Touch
-            </Button>
+            <Link to="/projects">
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 glow-primary"
+              >
+                View My Work
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-primary/30 hover:border-primary hover:bg-primary/10 px-8 py-3"
+              >
+                Get In Touch
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -68,11 +73,11 @@ const Hero = () => {
             </span>
             <span className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-secondary rounded-full"></div>
-              <span>Docker & Kubernetes</span>
+              <span>Springboot and Jenkins</span>
             </span>
             <span className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-primary rounded-full"></div>
-              <span>AWS & GCP</span>
+              <span>AWS & IBM Cloud</span>
             </span>
           </div>
         </div>

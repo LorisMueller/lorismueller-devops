@@ -5,62 +5,46 @@ import ProjectCard from '@/components/ProjectCard';
 const Projects = () => {
   const projects = [
     {
-      id: 'microservices-platform',
-      title: 'Microservices Platform',
-      description: 'A scalable microservices platform built with Docker, Kubernetes, and React. Features auto-scaling, service discovery, and real-time monitoring with comprehensive logging and alerting systems.',
+      id: 'api-onboarding-automation',
+      title: 'API Onboarding Automation',
+      description: 'Enterprise automation tool to streamline onboarding of large-scale business clients (e.g., banks) into the company’s API-based ticketing system. End-to-end implementation using Java (Spring Boot), SQL, and GitLab CI/CD — from planning through deployment into production.',
       image: '/placeholder-project.jpg',
-      technologies: ['React', 'Node.js', 'Docker', 'Kubernetes', 'MongoDB', 'Redis', 'Grafana'],
+      technologies: ['Java', 'Spring Boot', 'SQL', 'GitLab CI', 'Docker'],
+      githubUrl: 'https://github.com'
+    },
+    {
+      id: 'hebamme-website',
+      title: 'Hebamme Portfolio Website',
+      description: 'Simple and elegant personal website for a self-employed midwife (pre-AI era), built with semantic HTML and custom CSS. Focused on clean design, accessibility, and mobile responsiveness.',
+      image: '/placeholder-project.jpg',
+      technologies: ['HTML', 'CSS'],
       githubUrl: 'https://github.com',
       liveUrl: 'https://demo.com'
     },
     {
-      id: 'ci-cd-pipeline',
-      title: 'CI/CD Pipeline Automation',
-      description: 'Automated deployment pipeline using GitLab CI/CD, reducing deployment time by 80% and ensuring zero-downtime deployments across multiple environments.',
+      id: 'tenant-landlord-app',
+      title: 'Tenant–Landlord Communication App',
+      description: 'Progressive web app for a start-up enhancing communication between tenants and landlords. Led the project and client communication, handled task delegation, and implemented multi-language support. Built with React and integrated with a custom Strapi backend.',
       image: '/placeholder-project.jpg',
-      technologies: ['GitLab CI', 'Docker', 'AWS', 'Terraform', 'Ansible'],
-      githubUrl: 'https://github.com'
-    },
-    {
-      id: 'monitoring-dashboard',
-      title: 'Infrastructure Monitoring',
-      description: 'Real-time monitoring dashboard built with React and Grafana, providing insights into system performance, health metrics, and automated alerting.',
-      image: '/placeholder-project.jpg',
-      technologies: ['React', 'Grafana', 'Prometheus', 'Node.js', 'InfluxDB'],
+      technologies: ['React', 'Strapi', 'PWA', 'JavaScript', 'CSS'],
       githubUrl: 'https://github.com',
       liveUrl: 'https://demo.com'
     },
     {
-      id: 'cloud-migration',
-      title: 'Cloud Migration Tool',
-      description: 'Automated tool for migrating legacy applications to cloud infrastructure with minimal downtime and comprehensive rollback capabilities.',
+      id: 'drone-business-site',
+      title: 'Drone Business Website',
+      description: 'Professional website for a drone services company, built before the AI boom. Developed with React, HTML, CSS, and a Strapi backend. Fully responsive and designed to reflect a modern, business-oriented identity.',
       image: '/placeholder-project.jpg',
-      technologies: ['Python', 'AWS', 'Terraform', 'Docker', 'PostgreSQL'],
-      githubUrl: 'https://github.com'
-    },
-    {
-      id: 'api-gateway',
-      title: 'API Gateway Service',
-      description: 'Custom API gateway with rate limiting, authentication, caching, and real-time analytics for microservices architecture.',
-      image: '/placeholder-project.jpg',
-      technologies: ['Node.js', 'Express', 'Redis', 'JWT', 'Docker'],
+      technologies: ['React', 'HTML', 'CSS', 'Strapi'],
       githubUrl: 'https://github.com',
       liveUrl: 'https://demo.com'
-    },
-    {
-      id: 'deployment-automation',
-      title: 'Deployment Automation',
-      description: 'Comprehensive deployment automation system with blue-green deployments, automated testing, and rollback mechanisms.',
-      image: '/placeholder-project.jpg',
-      technologies: ['Jenkins', 'Docker', 'Kubernetes', 'Helm', 'Python'],
-      githubUrl: 'https://github.com'
     }
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16 animate-slide-up">
@@ -68,8 +52,8 @@ const Projects = () => {
               My <span className="text-gradient">Projects</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A comprehensive showcase of my work in DevOps, infrastructure automation, 
-              fullstack development, and cloud solutions. Each project represents a unique 
+              A comprehensive showcase of my work in DevOps, infrastructure automation,
+              fullstack development, and cloud solutions. Each project represents a unique
               challenge and innovative solution.
             </p>
           </div>

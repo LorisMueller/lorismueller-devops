@@ -16,7 +16,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
@@ -25,7 +25,7 @@ const Contact = () => {
                 Get In <span className="text-gradient">Touch</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Ready to discuss your next project? I'd love to hear about your challenges 
+                Ready to discuss your next project? I'd love to hear about your challenges
                 and explore how we can work together to build something amazing.
               </p>
             </div>
@@ -34,7 +34,7 @@ const Contact = () => {
               {/* Contact Form */}
               <Card className="p-8 bg-card border-border/20 animate-slide-in-left">
                 <h2 className="text-2xl font-semibold mb-6 text-primary">Send a Message</h2>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -112,11 +112,11 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">Email</h3>
-                      <p className="text-muted-foreground">hello@devops.dev</p>
+                      <p className="text-muted-foreground">lorismueller_business@protonmail.com</p>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    I typically respond to emails within 24 hours. Feel free to reach out 
+                    I typically respond to emails within 24 hours. Feel free to reach out
                     for project inquiries, collaboration opportunities, or just to say hello.
                   </p>
                 </Card>
@@ -132,19 +132,31 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="flex space-x-4">
-                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                      LinkedIn
-                    </Button>
-                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                      GitHub
-                    </Button>
-                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                      Twitter
-                    </Button>
+                    <div className="flex space-x-4">
+                      <a
+                        href="https://www.linkedin.com/in/loris-mueller/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                          LinkedIn
+                        </Button>
+                      </a>
+                      <a
+                        href="https://github.com/LorisMueller"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                          GitHub
+                        </Button>
+                      </a>
+                    </div>
+
                   </div>
                 </Card>
 
-                <Card className="p-6 bg-card border-border/20 card-hover">
+                {/* <Card className="p-6 bg-card border-border/20 card-hover">
                   <div className="flex items-center space-x-4 mb-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                       <FileText className="w-6 h-6 text-primary" />
@@ -157,12 +169,12 @@ const Contact = () => {
                   <Button variant="outline" className="w-full border-primary/30 hover:border-primary hover:bg-primary/10">
                     Download Resume
                   </Button>
-                </Card>
+                </Card> */}
 
                 <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 border-border/20">
                   <h3 className="text-lg font-semibold mb-2">Let's Build Something Great</h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Whether you need DevOps consulting, infrastructure automation, 
+                    Whether you need DevOps consulting, infrastructure automation,
                     or fullstack development, I'm here to help bring your ideas to life.
                   </p>
                   <div className="flex space-x-2 text-xs text-muted-foreground">

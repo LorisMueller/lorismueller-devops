@@ -8,48 +8,35 @@ const Skills = () => {
       title: 'DevOps & Infrastructure',
       color: 'primary',
       skills: [
-        { name: 'Docker', level: 95 },
-        { name: 'Kubernetes', level: 90 },
-        { name: 'AWS', level: 88 },
-        { name: 'Terraform', level: 85 },
-        { name: 'Jenkins', level: 82 },
-        { name: 'GitLab CI/CD', level: 90 }
+        { name: 'Docker', level: 55 },
+        { name: 'Git', level: 95 },
+        { name: 'AWS', level: 50 },
+        { name: 'Jenkins', level: 65 },
+        { name: 'GitLab CI/CD', level: 65 }
       ]
     },
     {
       title: 'Frontend Development',
       color: 'secondary',
       skills: [
-        { name: 'React', level: 92 },
-        { name: 'TypeScript', level: 88 },
-        { name: 'Next.js', level: 85 },
-        { name: 'Tailwind CSS', level: 90 },
-        { name: 'Vue.js', level: 75 },
-        { name: 'GraphQL', level: 80 }
+        { name: 'React', level: 80 },
+        { name: 'TypeScript', level: 60 },
+        { name: 'Angular', level: 75 },
+        { name: 'Tailwind CSS', level: 50 },
+        { name: 'Vue.js', level: 60 },
+        { name: 'Responsive Design', level: 60 }
       ]
     },
     {
       title: 'Backend Development',
       color: 'primary',
       skills: [
-        { name: 'Node.js', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'Go', level: 78 },
-        { name: 'PostgreSQL', level: 88 },
-        { name: 'MongoDB', level: 82 },
-        { name: 'Redis', level: 85 }
-      ]
-    },
-    {
-      title: 'Tools & Technologies',
-      color: 'secondary',
-      skills: [
-        { name: 'Git', level: 95 },
-        { name: 'Linux', level: 90 },
-        { name: 'Nginx', level: 85 },
-        { name: 'Prometheus', level: 80 },
-        { name: 'Grafana', level: 82 },
-        { name: 'Ansible', level: 78 }
+        { name: 'SQL', level: 70 },
+        { name: 'Java Springboot', level: 85 },
+        { name: 'MariaDB', level: 70 },
+        { name: 'MongoDB', level: 70 },
+        { name: 'REST APIs', level: 85 },
+        { name: 'JUnit Testing', level: 80 }
       ]
     }
   ];
@@ -117,27 +104,11 @@ const Skills = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card className="p-6 bg-card border-border/20 card-hover animate-slide-up">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-primary font-bold">AWS</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">AWS Solutions Architect</h3>
-                <p className="text-muted-foreground text-sm">Professional certification for designing distributed applications on AWS</p>
-              </Card>
-
-              <Card className="p-6 bg-card border-border/20 card-hover animate-slide-up">
                 <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-secondary font-bold">K8s</span>
+                  <span className="text-secondary font-bold">Sec</span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">Kubernetes Administrator</h3>
-                <p className="text-muted-foreground text-sm">Certified Kubernetes Administrator (CKA) for cluster management</p>
-              </Card>
-
-              <Card className="p-6 bg-card border-border/20 card-hover animate-slide-up">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-primary font-bold">TF</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Terraform Associate</h3>
-                <p className="text-muted-foreground text-sm">HashiCorp certified for infrastructure as code practices</p>
+                <h3 className="text-lg font-semibold mb-2">Jr Penetration Tester - tryhackme</h3>
+                <p className="text-muted-foreground text-sm">a professional, hands-on certification that demonstrates real-world penetration testing skills and is recognized by top cybersecurity employers</p>
               </Card>
             </div>
           </div>

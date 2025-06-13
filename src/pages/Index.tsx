@@ -10,29 +10,20 @@ import { Link } from 'react-router-dom';
 const Index = () => {
   const featuredProjects = [
     {
-      id: 'microservices-platform',
-      title: 'Microservices Platform',
-      description: 'A scalable microservices platform built with Docker, Kubernetes, and React. Features auto-scaling, service discovery, and real-time monitoring.',
+      id: 'api-onboarding-automation',
+      title: 'API Onboarding Automation',
+      description: 'Enterprise automation tool to streamline onboarding of large-scale business clients (e.g., banks) into the company’s API-based ticketing system. End-to-end implementation using Java (Spring Boot), SQL, and GitLab CI/CD — from planning through deployment into production.',
       image: '/placeholder-project.jpg',
-      technologies: ['React', 'Node.js', 'Docker', 'Kubernetes', 'MongoDB'],
+      technologies: ['Java', 'Spring Boot', 'SQL', 'GitLab CI', 'Docker'],
       githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.com',
       featured: true
     },
     {
-      id: 'ci-cd-pipeline',
-      title: 'CI/CD Pipeline Automation',
-      description: 'Automated deployment pipeline using GitLab CI/CD, reducing deployment time by 80% and ensuring zero-downtime deployments.',
+      id: 'tenant-landlord-app',
+      title: 'Tenant–Landlord Communication App',
+      description: 'Progressive web app for a start-up enhancing communication between tenants and landlords. Led the project and client communication, handled task delegation, and implemented multi-language support. Built with React and integrated with a custom Strapi backend.',
       image: '/placeholder-project.jpg',
-      technologies: ['GitLab CI', 'Docker', 'AWS', 'Terraform'],
-      githubUrl: 'https://github.com'
-    },
-    {
-      id: 'monitoring-dashboard',
-      title: 'Infrastructure Monitoring',
-      description: 'Real-time monitoring dashboard built with React and Grafana, providing insights into system performance and health.',
-      image: '/placeholder-project.jpg',
-      technologies: ['React', 'Grafana', 'Prometheus', 'Node.js'],
+      technologies: ['React', 'Strapi', 'PWA', 'JavaScript', 'CSS'],
       githubUrl: 'https://github.com',
       liveUrl: 'https://demo.com'
     }
@@ -51,15 +42,15 @@ const Index = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Code className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold text-primary mb-2">50+</h3>
-              <p className="text-muted-foreground">Projects Deployed</p>
+              <h3 className="text-2xl font-bold text-primary mb-2">10+</h3>
+              <p className="text-muted-foreground">Projects Developed</p>
             </Card>
 
             <Card className="p-6 text-center bg-card border-border/20 card-hover">
               <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Briefcase className="w-6 h-6 text-secondary" />
               </div>
-              <h3 className="text-2xl font-bold text-secondary mb-2">5+</h3>
+              <h3 className="text-2xl font-bold text-secondary mb-2">1+</h3>
               <p className="text-muted-foreground">Years Experience</p>
             </Card>
 
@@ -67,8 +58,8 @@ const Index = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <User className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold text-primary mb-2">25+</h3>
-              <p className="text-muted-foreground">Happy Clients</p>
+              <h3 className="text-2xl font-bold text-primary mb-2">EFZ</h3>
+              <p className="text-muted-foreground">Certified Application Developer</p>
             </Card>
           </div>
         </div>
