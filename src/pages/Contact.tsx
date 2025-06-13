@@ -2,31 +2,125 @@
 import Navigation from '@/components/Navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mail, User, Zap, ArrowRight } from 'lucide-react';
+import { Mail, User, ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const Contact = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [pulseActive, setPulseActive] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number>();
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Trigger pulse animation periodically
   useEffect(() => {
-    const interval = setInterval(() => {
-      setPulseActive(true);
-      setTimeout(() => setPulseActive(false), 2000);
-    }, 5000);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    return () => clearInterval(interval);
-  }, []);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-  const skillBubbles = [
-    { label: 'React', x: 20, y: 30, delay: 0 },
-    { label: 'TypeScript', x: 70, y: 20, delay: 200 },
-    { label: 'Node.js', x: 15, y: 70, delay: 400 },
-    { label: 'Docker', x: 80, y: 60, delay: 600 },
-    { label: 'AWS', x: 45, y: 50, delay: 800 },
-    { label: 'DevOps', x: 60, y: 80, delay: 1000 },
-  ];
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    let time = 0;
+    let morphFactor = 0;
+    const targetMorph = isHovered ? 1 : 0;
+
+    const animate = () => {
+      time += 0.02;
+      morphFactor += (targetMorph - morphFactor) * 0.05;
+
+      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+
+      const centerX = canvas.offsetWidth / 2;
+      const centerY = canvas.offsetHeight / 2;
+      const size = 80;
+
+      // Create multiple rotating shapes
+      for (let layer = 0; layer < 3; layer++) {
+        const layerTime = time + layer * 0.5;
+        const radius = size - layer * 15;
+        
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(layerTime * (layer % 2 === 0 ? 1 : -1));
+
+        // Create gradient
+        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
+        if (layer === 0) {
+          gradient.addColorStop(0, 'rgba(52, 120, 131, 0.8)');
+          gradient.addColorStop(1, 'rgba(52, 120, 131, 0.1)');
+        } else if (layer === 1) {
+          gradient.addColorStop(0, 'rgba(255, 63, 0, 0.6)');
+          gradient.addColorStop(1, 'rgba(255, 63, 0, 0.1)');
+        } else {
+          gradient.addColorStop(0, 'rgba(52, 120, 131, 0.4)');
+          gradient.addColorStop(1, 'rgba(255, 63, 0, 0.1)');
+        }
+
+        ctx.fillStyle = gradient;
+        ctx.strokeStyle = layer === 0 ? 'rgba(52, 120, 131, 0.6)' : 'rgba(255, 63, 0, 0.4)';
+        ctx.lineWidth = 2;
+
+        // Morph between shapes
+        const points = 6 + Math.floor(morphFactor * 2);
+        
+        ctx.beginPath();
+        for (let i = 0; i <= points; i++) {
+          const angle = (i / points) * Math.PI * 2;
+          const waveRadius = radius + Math.sin(layerTime * 3 + angle * 4) * 10 * morphFactor;
+          const x = Math.cos(angle) * waveRadius;
+          const y = Math.sin(angle) * waveRadius;
+          
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Add inner glow
+        ctx.beginPath();
+        ctx.arc(0, 0, radius * 0.3, 0, Math.PI * 2);
+        const innerGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, radius * 0.3);
+        innerGlow.addColorStop(0, layer === 0 ? 'rgba(52, 120, 131, 0.9)' : 'rgba(255, 63, 0, 0.7)');
+        innerGlow.addColorStop(1, 'rgba(52, 120, 131, 0)');
+        ctx.fillStyle = innerGlow;
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // Add floating particles
+      for (let i = 0; i < 8; i++) {
+        const particleTime = time + i * 0.8;
+        const angle = particleTime * 0.5;
+        const distance = 120 + Math.sin(particleTime) * 20;
+        const x = centerX + Math.cos(angle) * distance;
+        const y = centerY + Math.sin(angle) * distance;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, 3 + Math.sin(particleTime * 2) * 1, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(52, 120, 131, ${0.6 + Math.sin(particleTime * 3) * 0.3})`;
+        ctx.fill();
+      }
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isHovered]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,94 +140,20 @@ const Contact = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Interactive Tech Stack Visualization */}
+              {/* 3D Morphing Visualization */}
               <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/20 animate-slide-in-left overflow-hidden">
                 <div className="relative">
                   <div 
                     className="relative bg-gradient-to-br from-primary/5 via-card to-secondary/5 rounded-xl border border-border/10 overflow-hidden"
                     style={{ height: '400px' }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
-                    {/* Animated Background Grid */}
-                    <div className="absolute inset-0 opacity-20">
-                      <div className="grid grid-cols-8 grid-rows-8 h-full w-full">
-                        {Array.from({ length: 64 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className={`border border-primary/10 transition-all duration-1000 ${
-                              pulseActive ? 'bg-primary/5' : ''
-                            }`}
-                            style={{ 
-                              animationDelay: `${i * 50}ms`,
-                              animation: pulseActive ? 'pulse 2s ease-in-out' : 'none'
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Floating Tech Bubbles */}
-                    <div className="absolute inset-0 p-6">
-                      {skillBubbles.map((skill, index) => (
-                        <div
-                          key={skill.label}
-                          className={`absolute transform transition-all duration-500 cursor-pointer ${
-                            hoveredIndex === index ? 'scale-110 z-10' : 'scale-100'
-                          }`}
-                          style={{
-                            left: `${skill.x}%`,
-                            top: `${skill.y}%`,
-                            animationDelay: `${skill.delay}ms`
-                          }}
-                          onMouseEnter={() => setHoveredIndex(index)}
-                          onMouseLeave={() => setHoveredIndex(null)}
-                        >
-                          <div className={`
-                            relative px-4 py-2 rounded-full backdrop-blur-sm border transition-all duration-300
-                            ${hoveredIndex === index 
-                              ? 'bg-primary/20 border-primary/40 shadow-lg shadow-primary/20' 
-                              : 'bg-card/60 border-border/30'
-                            }
-                          `}>
-                            <span className={`text-sm font-medium transition-colors duration-300 ${
-                              hoveredIndex === index ? 'text-primary' : 'text-foreground'
-                            }`}>
-                              {skill.label}
-                            </span>
-                            
-                            {/* Glow effect on hover */}
-                            {hoveredIndex === index && (
-                              <div className="absolute inset-0 rounded-full bg-primary/10 animate-ping" />
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Central Connection Hub */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className={`
-                        w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary 
-                        flex items-center justify-center transition-all duration-500
-                        ${pulseActive ? 'scale-110 shadow-lg shadow-primary/30' : 'scale-100'}
-                      `}>
-                        <Zap className="w-8 h-8 text-white" />
-                      </div>
-                      
-                      {/* Connecting Lines */}
-                      {skillBubbles.map((skill, index) => (
-                        <div
-                          key={`line-${index}`}
-                          className={`absolute w-px bg-gradient-to-r from-primary/20 to-transparent transition-opacity duration-300 ${
-                            hoveredIndex === index ? 'opacity-60' : 'opacity-20'
-                          }`}
-                          style={{
-                            height: `${Math.sqrt(Math.pow(skill.x - 50, 2) + Math.pow(skill.y - 50, 2)) * 2}px`,
-                            transformOrigin: 'top',
-                            transform: `rotate(${Math.atan2(skill.y - 50, skill.x - 50) * 180 / Math.PI + 90}deg)`,
-                          }}
-                        />
-                      ))}
-                    </div>
+                    <canvas
+                      ref={canvasRef}
+                      className="w-full h-full"
+                      style={{ width: '100%', height: '100%' }}
+                    />
 
                     {/* Floating Action */}
                     <div className="absolute bottom-6 right-6">
@@ -142,15 +162,15 @@ const Contact = () => {
                         size="sm" 
                         className="text-muted-foreground hover:text-primary transition-colors group"
                       >
-                        Explore Tech Stack
+                        Hover to Transform
                         <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                       </Button>
                     </div>
                   </div>
                   
                   <p className="text-sm text-muted-foreground mt-4">
-                    Hover over the technologies to see the interactive connections.
-                    This represents the integrated approach I take with modern development.
+                    Hover over the canvas to see the morphing animation.
+                    This represents the dynamic and adaptive approach I bring to development.
                   </p>
                 </div>
               </Card>
