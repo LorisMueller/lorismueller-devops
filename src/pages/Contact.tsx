@@ -21,8 +21,11 @@ const Contact = () => {
     let time = 0;
 
     const resizeCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2); // Limit DPR to avoid performance issues
+      const container = canvas.parentElement;
+      if (!container) return;
+      
+      const rect = container.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
@@ -114,7 +117,13 @@ const Contact = () => {
     };
 
     const animate = () => {
-      const rect = canvas.getBoundingClientRect();
+      const container = canvas.parentElement;
+      if (!container) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+
+      const rect = container.getBoundingClientRect();
       const canvasWidth = rect.width;
       const canvasHeight = rect.height;
       
@@ -177,7 +186,7 @@ const Contact = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/20 animate-slide-in-left overflow-hidden">
                 <div
-                  className="relative bg-gradient-to-br from-primary/5 via-card to-secondary/5 rounded-xl border border-border/10 overflow-hidden flex items-center justify-center"
+                  className="relative bg-gradient-to-br from-primary/5 via-card to-secondary/5 rounded-xl border border-border/10 overflow-hidden w-full"
                   style={{ height: '400px' }}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
@@ -185,7 +194,6 @@ const Contact = () => {
                   <canvas
                     ref={canvasRef}
                     className="absolute inset-0 w-full h-full"
-                    style={{ width: '100%', height: '100%' }}
                   />
                 </div>
               </Card>
