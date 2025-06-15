@@ -1,3 +1,4 @@
+
 import Navigation from '@/components/Navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,106 +17,145 @@ const Contact = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const dpr = window.devicePixelRatio || 1;
+    let animationId: number;
+    let time = 0;
 
     const resizeCanvas = () => {
-      const { offsetWidth: width, offsetHeight: height } = canvas;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // Limit DPR to avoid performance issues
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      
       ctx.scale(dpr, dpr);
     };
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    let time = 0;
-
-    const drawLayer = (layer: number) => {
+    const drawLayer = (layer: number, canvasWidth: number, canvasHeight: number) => {
       const layerTime = time + layer * 0.5;
-      const radius = 80 - layer * 15;
-      const morphFactor = 1;
+      const baseRadius = Math.min(canvasWidth, canvasHeight) * 0.15;
+      const radius = baseRadius - layer * (baseRadius * 0.2);
+      const morphFactor = isHovered ? 2 : 1;
 
       ctx.save();
-      ctx.translate(canvas.offsetWidth / 2 / dpr, canvas.offsetHeight / 2 / dpr);
-      ctx.rotate(layerTime * (layer % 2 === 0 ? 1 : -1));
+      ctx.translate(canvasWidth / 2, canvasHeight / 2);
+      ctx.rotate(layerTime * (layer % 2 === 0 ? 0.3 : -0.3));
 
       const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
-      const mainColor = layer === 1 ? 'rgba(255, 63, 0' : 'rgba(52, 120, 131';
+      const mainColor = layer === 0 ? '255, 63, 0' : '52, 120, 131';
+      const alpha = isHovered ? 0.8 - layer * 0.15 : 0.6 - layer * 0.15;
 
-      gradient.addColorStop(0, `${mainColor}, ${0.6 - layer * 0.2})`);
-      gradient.addColorStop(1, `${mainColor}, 0.1)`);
+      gradient.addColorStop(0, `rgba(${mainColor}, ${alpha})`);
+      gradient.addColorStop(1, `rgba(${mainColor}, 0.1)`);
 
       ctx.fillStyle = gradient;
-      ctx.strokeStyle = `${mainColor}, ${layer === 0 ? 0.6 : 0.4})`;
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = `rgba(${mainColor}, ${alpha * 0.7})`;
+      ctx.lineWidth = isHovered ? 3 : 2;
 
-      const points = 6 + Math.floor(morphFactor * 2);
+      const points = 6;
+      const waveIntensity = isHovered ? 15 * morphFactor : 8;
 
       ctx.beginPath();
       for (let i = 0; i <= points; i++) {
         const angle = (i / points) * Math.PI * 2;
-        const wave = Math.sin(layerTime * 3 + angle * 4) * 10 * morphFactor;
+        const wave = Math.sin(layerTime * 2 + angle * 3) * waveIntensity;
         const r = radius + wave;
         const x = Math.cos(angle) * r;
         const y = Math.sin(angle) * r;
-        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
       }
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
       // Inner glow
-      const glowRadius = radius * 0.3;
-      const innerGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, glowRadius);
-      innerGlow.addColorStop(0, `${mainColor}, ${layer === 0 ? 0.9 : 0.7})`);
-      innerGlow.addColorStop(1, `${mainColor}, 0)`);
+      if (isHovered) {
+        const glowRadius = radius * 0.4;
+        const innerGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, glowRadius);
+        innerGlow.addColorStop(0, `rgba(${mainColor}, ${0.6 - layer * 0.1})`);
+        innerGlow.addColorStop(1, `rgba(${mainColor}, 0)`);
 
-      ctx.beginPath();
-      ctx.arc(0, 0, glowRadius, 0, Math.PI * 2);
-      ctx.fillStyle = innerGlow;
-      ctx.fill();
+        ctx.beginPath();
+        ctx.arc(0, 0, glowRadius, 0, Math.PI * 2);
+        ctx.fillStyle = innerGlow;
+        ctx.fill();
+      }
 
       ctx.restore();
     };
 
-    const drawParticles = () => {
-      const cx = canvas.offsetWidth / 2 / dpr;
-      const cy = canvas.offsetHeight / 2 / dpr;
-      for (let i = 0; i < 8; i++) {
+    const drawParticles = (canvasWidth: number, canvasHeight: number) => {
+      const cx = canvasWidth / 2;
+      const cy = canvasHeight / 2;
+      const particleCount = isHovered ? 12 : 8;
+      const baseDistance = Math.min(canvasWidth, canvasHeight) * 0.25;
+      
+      for (let i = 0; i < particleCount; i++) {
         const t = time + i * 0.8;
-        const angle = t * 0.5;
-        const distance = 120 + Math.sin(t) * 20;
+        const angle = t * 0.4 + i * (Math.PI * 2 / particleCount);
+        const distance = baseDistance + Math.sin(t * 1.5) * (baseDistance * 0.3);
         const x = cx + Math.cos(angle) * distance;
         const y = cy + Math.sin(angle) * distance;
-        const alpha = 0.6 + Math.sin(t * 3) * 0.3;
+        const alpha = 0.4 + Math.sin(t * 2) * 0.3;
+        const size = isHovered ? 4 + Math.sin(t * 3) * 2 : 2 + Math.sin(t * 2) * 1;
 
         ctx.beginPath();
-        ctx.arc(x, y, 3 + Math.sin(t * 2), 0, Math.PI * 2);
+        ctx.arc(x, y, size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(52, 120, 131, ${alpha})`;
         ctx.fill();
       }
     };
 
     const animate = () => {
-      const deltaTime = isHovered ? 0.15 : 0.02; // Speed up when hovered
+      const rect = canvas.getBoundingClientRect();
+      const canvasWidth = rect.width;
+      const canvasHeight = rect.height;
+      
+      if (canvasWidth === 0 || canvasHeight === 0) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+
+      const deltaTime = isHovered ? 0.08 : 0.015;
       time += deltaTime;
-    
-      ctx.clearRect(0, 0, canvas.offsetWidth / dpr, canvas.offsetHeight / dpr);
-    
-      for (let layer = 0; layer < 3; layer++) drawLayer(layer);
-      drawParticles();
-    
-      animationRef.current = requestAnimationFrame(animate);
+
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      // Draw layers
+      for (let layer = 2; layer >= 0; layer--) {
+        drawLayer(layer, canvasWidth, canvasHeight);
+      }
+      
+      drawParticles(canvasWidth, canvasHeight);
+
+      animationId = requestAnimationFrame(animate);
     };
 
+    // Initial setup
+    resizeCanvas();
     animate();
 
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationRef.current!);
+    // Handle resize
+    const handleResize = () => {
+      resizeCanvas();
     };
-  }, []);
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [isHovered]);
 
   return (
     <div className="min-h-screen bg-background">
