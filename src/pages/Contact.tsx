@@ -177,14 +177,14 @@ const Contact = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/20 animate-slide-in-left overflow-hidden">
                 <div
-                  className="relative bg-gradient-to-br from-primary/5 via-card to-secondary/5 rounded-xl border border-border/10 overflow-hidden"
+                  className="relative bg-gradient-to-br from-primary/5 via-card to-secondary/5 rounded-xl border border-border/10 overflow-hidden flex items-center justify-center"
                   style={{ height: '400px' }}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                 >
                   <canvas
                     ref={canvasRef}
-                    className="w-full h-full"
+                    className="absolute inset-0 w-full h-full"
                     style={{ width: '100%', height: '100%' }}
                   />
                 </div>
