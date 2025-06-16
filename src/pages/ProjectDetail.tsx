@@ -19,8 +19,9 @@ const ProjectDetail = () => {
   
       The project also involved a robust CI/CD pipeline using GitLab and Jenkins, as well as extensive automated and end-to-end testing. It went into production after 5–8 months of development and significantly reduced onboarding effort for internal teams.`,
       technologies: ['Java', 'Spring Boot', 'MariaDB', 'Jenkins', 'GitLab CI', 'REST'],
-      githubUrl: 'https://github.com',
+      githubUrl: '',
       liveUrl: '',
+      image: '/pictures/support-automation-2.png',
       timeline: '6-7 months',
       team: '1 developer (project lead within a larger team)',
       challenges: [
@@ -44,8 +45,9 @@ const ProjectDetail = () => {
 
     I handled everything from concept and layout to frontend implementation and deployment. The visual identity — including the logo and printed materials like ID cards — was designed by me to ensure consistent branding. The site is fully responsive and optimized for both mobile and desktop devices.`,
       technologies: ['HTML', 'CSS'],
-      githubUrl: 'https://github.com',
+      githubUrl: 'https://github.com/LorisMueller/Umsorgt-nach-der-Geburt.git',
       liveUrl: 'https://www.undg.ch',
+      image: '/pictures/midwife-portfolio.png',
       timeline: '3–4 weeks',
       team: 'Solo project',
       challenges: [
@@ -69,8 +71,9 @@ const ProjectDetail = () => {
 
     I led the development project, acting as the main point of contact with the client and distributing tasks across the team. The frontend was built in React and connected to a custom Strapi backend, which we also set up and extended. The application supports multiple languages and was designed with scalability and user-friendliness in mind.`,
       technologies: ['React', 'Strapi', 'TypeScript', 'PWA', 'HTML', 'CSS'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.com',
+      githubUrl: '',
+      liveUrl: '',
+      image: '/pictures/tenant-landlord.png',
       timeline: '3-4 months',
       team: '3 developers (project lead)',
       challenges: [
@@ -94,8 +97,9 @@ const ProjectDetail = () => {
 
     I developed the site using React for the frontend and Strapi as the backend CMS. The site allows the business to manage service descriptions, image galleries, and contact details through a simple admin panel. The design was custom-built to reflect a trustworthy and modern brand, with smooth UI and responsive behavior throughout.`,
       technologies: ['React', 'HTML', 'CSS', 'Strapi'],
-      githubUrl: 'https://github.com',
-      liveUrl: '',
+      githubUrl: 'https://github.com/LorisMueller/CropScout.git',
+      liveUrl: 'https://cropscout.netlify.app/',
+      image: '/pictures/drone-business.png',
       timeline: '3–4 weeks',
       team: 'Solo project',
       challenges: [
@@ -130,6 +134,8 @@ const ProjectDetail = () => {
     );
   }
 
+  const hasImage = project.image.trim() !== '';
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -154,24 +160,35 @@ const ProjectDetail = () => {
 
               <div className="flex flex-wrap gap-4 mb-8">
                 {project.githubUrl && (
-                  <Button className="bg-primary hover:bg-primary/90">
-                    <Code className="w-4 h-4 mr-2" />
-                    View Code
-                  </Button>
+                  <Link to={project.githubUrl} target="_blank">
+                    <Button className="bg-primary hover:bg-primary/90">
+                      <Code className="w-4 h-4 mr-2" />
+                      View Code
+                    </Button>
+                  </Link>
                 )}
                 {project.liveUrl && (
-                  <Button variant="outline" className="border-primary/30 hover:border-primary">
-                    <LinkIcon className="w-4 h-4 mr-2" />
-                    Live Demo
-                  </Button>
+                  <Link to={project.liveUrl} target="_blank">
+                    <Button variant="outline" className="border-primary/30 hover:border-primary">
+                      <LinkIcon className="w-4 h-4 mr-2" />
+                      Live Demo
+                    </Button>
+                  </Link>
                 )}
               </div>
             </div>
 
             {/* Project Image */}
-            <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg mb-12 flex items-center justify-center animate-slide-up">
-              <Code className="w-24 h-24 text-primary/60" />
-            </div>
+            {hasImage ? (
+              <img
+                src={project.image}
+                className="aspect-video object-cover w-full h-auto"
+              />
+            ) : (
+              <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                <Code className="w-12 h-12 text-primary/60" />
+              </div>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-8">

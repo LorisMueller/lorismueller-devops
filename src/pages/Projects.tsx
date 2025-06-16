@@ -8,36 +8,33 @@ const Projects = () => {
       id: 'api-onboarding-automation',
       title: 'API Onboarding Automation',
       description: 'Enterprise automation tool to streamline onboarding of large-scale business clients (e.g., banks) into the company’s API-based ticketing system. End-to-end implementation using Java (Spring Boot), SQL, and GitLab CI/CD — from planning through deployment into production.',
-      image: '/placeholder-project.jpg',
-      technologies: ['Java', 'Spring Boot', 'SQL', 'GitLab CI', 'Docker'],
-      githubUrl: 'https://github.com'
+      image: '/pictures/support-automation-2.png',
+      technologies: ['Java', 'Spring Boot', 'SQL', 'GitLab CI', 'Docker']
     },
     {
       id: 'hebamme-website',
       title: 'Hebamme Portfolio Website',
       description: 'Simple and elegant personal website for a self-employed midwife (pre-AI era), built with semantic HTML and custom CSS. Focused on clean design, accessibility, and mobile responsiveness.',
-      image: '/placeholder-project.jpg',
+      image: '/pictures/midwife-portfolio.png',
       technologies: ['HTML', 'CSS'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.com'
+      githubUrl: 'https://github.com/LorisMueller/Umsorgt-nach-der-Geburt.git',
+      liveUrl: 'https://undg.ch'
     },
     {
       id: 'tenant-landlord-app',
       title: 'Tenant–Landlord Communication App',
       description: 'Progressive web app for a start-up enhancing communication between tenants and landlords. Led the project and client communication, handled task delegation, and implemented multi-language support. Built with React and integrated with a custom Strapi backend.',
-      image: '/placeholder-project.jpg',
-      technologies: ['React', 'Strapi', 'PWA', 'JavaScript', 'CSS'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.com'
+      image: 'pictures/tenant-landlord.png',
+      technologies: ['React', 'Strapi', 'PWA', 'JavaScript', 'CSS']
     },
     {
       id: 'drone-business-site',
       title: 'Drone Business Website',
       description: 'Professional website for a drone services company, built before the AI boom. Developed with React, HTML, CSS, and a Strapi backend. Fully responsive and designed to reflect a modern, business-oriented identity.',
-      image: '/placeholder-project.jpg',
+      image: 'pictures/drone-business.png',
       technologies: ['React', 'HTML', 'CSS', 'Strapi'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.com'
+      githubUrl: 'https://github.com/LorisMueller/CropScout.git',
+      liveUrl: 'https://cropscout.netlify.app/'
     }
   ];
 

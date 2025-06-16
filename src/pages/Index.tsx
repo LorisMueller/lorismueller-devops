@@ -13,7 +13,7 @@ const Index = () => {
       id: 'api-onboarding-automation',
       title: 'API Onboarding Automation',
       description: 'Enterprise automation tool to streamline onboarding of large-scale business clients (e.g., banks) into the company’s API-based ticketing system. End-to-end implementation using Java (Spring Boot), SQL, and GitLab CI/CD — from planning through deployment into production.',
-      image: '/placeholder-project.jpg',
+      image: '/pictures/support-automation-2.png',
       technologies: ['Java', 'Spring Boot', 'SQL', 'GitLab CI', 'Docker'],
       githubUrl: 'https://github.com',
       featured: true
@@ -22,7 +22,7 @@ const Index = () => {
       id: 'tenant-landlord-app',
       title: 'Tenant–Landlord Communication App',
       description: 'Progressive web app for a start-up enhancing communication between tenants and landlords. Led the project and client communication, handled task delegation, and implemented multi-language support. Built with React and integrated with a custom Strapi backend.',
-      image: '/placeholder-project.jpg',
+      image: '/pictures/tenant-landlord.png',
       technologies: ['React', 'Strapi', 'PWA', 'JavaScript', 'CSS'],
       githubUrl: 'https://github.com',
       liveUrl: 'https://demo.com'
