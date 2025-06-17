@@ -35,7 +35,15 @@ const Projects = () => {
       technologies: ['React', 'HTML', 'CSS', 'Strapi'],
       githubUrl: 'https://github.com/LorisMueller/CropScout.git',
       liveUrl: 'https://cropscout.netlify.app/'
+    },
+    {
+      id: 'lodgement',
+      title: 'Lodgement Booking Platform',
+      description: 'Modern booking platform for lodges worldwide with an intuitive calendar, extras selection, and secure Stripe payments. Fullstack React & Strapi app with seamless user and admin experience.',
+      image: '',
+      technologies: ['React', 'Strapi', 'Stripe', 'Tailwind CSS', 'Node.js']
     }
+
   ];
 
   return (

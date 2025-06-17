@@ -115,6 +115,34 @@ const ProjectDetail = () => {
         'Optimized for performance and SEO basics',
         'Publicly deployed under custom domain'
       ]
+    },
+    'lodgement': {
+      title: 'Lodgement Booking Platform',
+      description: 'Modern lodge-booking platform featuring an elegant and user-friendly calendar, customizable extras, and secure Stripe-based payments for a seamless booking experience.',
+      longDescription: `Lodgement is a full-featured booking application that allows users to explore and reserve lodges across various countries and continents. It offers a modern and user-friendly interface where users can browse accommodations, select extras and packages, and complete their booking with secure credit card payment via Stripe.
+
+    The app features a responsive calendar that prevents selecting already reserved or booked dates — a functionality that required careful state and availability management. Lodgement also includes user profiles where bookings can be viewed, and an admin interface for managing lodge data and offerings.
+
+    I developed the entire application from scratch, including the frontend and backend logic. Sensitive operations such as payment processing and user data handling were treated with high priority for security and integrity. No credit card data is stored or logged within the application.`,
+      technologies: ['React', 'TypeScript', 'Strapi', 'Stripe', 'Tailwind CSS', 'Node.js'],
+      githubUrl: '',
+      liveUrl: '',
+      image: '',
+      timeline: '2–3 months',
+      team: '1 developer (solo project)',
+      challenges: [
+        'Handling dynamic reservation states and blocked calendar dates in real time',
+        'Integrating and testing Stripe payments securely and reliably',
+        'Ensuring smooth UX from lodge discovery to booking confirmation'
+      ],
+      features: [
+        'Interactive calendar with real-time availability validation',
+        'Secure payment processing via Stripe',
+        'User profiles with booking history overview',
+        'Search and filter functionality by country and continent',
+        'Support for extras and package-based pricing',
+        'Admin dashboard for lodge and data management'
+      ]
     }
   }
 
