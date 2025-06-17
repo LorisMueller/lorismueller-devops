@@ -15,7 +15,7 @@ const Index = () => {
     {
       id: 'api-onboarding-automation',
       title: 'API Onboarding Automation',
-      description: 'Enterprise automation tool to streamline onboarding of large-scale business clients (e.g., banks) into the company's API-based ticketing system. End-to-end implementation using Java (Spring Boot), SQL, and GitLab CI/CD — from planning through deployment into production.',
+      description: 'Enterprise automation tool to streamline onboarding of large-scale business clients (e.g., banks) into the company\'s API-based ticketing system. End-to-end implementation using Java (Spring Boot), SQL, and GitLab CI/CD — from planning through deployment into production.',
       image: '/pictures/support-automation-2.png',
       technologies: ['Java', 'Spring Boot', 'SQL', 'GitLab CI', 'Docker'],
       githubUrl: '',
