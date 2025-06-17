@@ -127,7 +127,7 @@ const ProjectDetail = () => {
       technologies: ['React', 'TypeScript', 'Strapi', 'Stripe', 'Tailwind CSS', 'Node.js'],
       githubUrl: '',
       liveUrl: '',
-      image: '',
+      image: '/pictures/lodgement.png',
       timeline: '2–3 months',
       team: '1 developer (solo project)',
       challenges: [

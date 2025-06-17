@@ -40,7 +40,7 @@ const Projects = () => {
       id: 'lodgement',
       title: 'Lodgement Booking Platform',
       description: 'Modern booking platform for lodges worldwide with an intuitive calendar, extras selection, and secure Stripe payments. Fullstack React & Strapi app with seamless user and admin experience.',
-      image: '',
+      image: '/pictures/lodgement.png',
       technologies: ['React', 'Strapi', 'Stripe', 'Tailwind CSS', 'Node.js']
     }
 

@@ -63,7 +63,7 @@ const About = () => {
                 <div className="text-muted-foreground">Projects</div>
               </Card>
               <Card className="p-6 text-center bg-card border-border/20 card-hover">
-                <div className="text-3xl font-bold text-secondary mb-2">5+</div>
+                <div className="text-3xl font-bold text-secondary mb-2">2+</div>
                 <div className="text-muted-foreground">Years</div>
               </Card>
               <Card className="p-6 text-center bg-card border-border/20 card-hover">

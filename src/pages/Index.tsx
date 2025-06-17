@@ -15,18 +15,18 @@ const Index = () => {
       description: 'Enterprise automation tool to streamline onboarding of large-scale business clients (e.g., banks) into the company’s API-based ticketing system. End-to-end implementation using Java (Spring Boot), SQL, and GitLab CI/CD — from planning through deployment into production.',
       image: '/pictures/support-automation-2.png',
       technologies: ['Java', 'Spring Boot', 'SQL', 'GitLab CI', 'Docker'],
-      githubUrl: 'https://github.com',
+      githubUrl: '',
       featured: true
     },
     {
-      id: 'tenant-landlord-app',
-      title: 'Tenant–Landlord Communication App',
-      description: 'Progressive web app for a start-up enhancing communication between tenants and landlords. Led the project and client communication, handled task delegation, and implemented multi-language support. Built with React and integrated with a custom Strapi backend.',
-      image: '/pictures/tenant-landlord.png',
-      technologies: ['React', 'Strapi', 'PWA', 'JavaScript', 'CSS'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://demo.com'
-    }
+      id: 'drone-business-site',
+      title: 'Drone Business Website',
+      description: 'Professional website for a drone services company, built before the AI boom. Developed with React, HTML, CSS, and a Strapi backend. Fully responsive and designed to reflect a modern, business-oriented identity.',
+      image: 'pictures/drone-business.png',
+      technologies: ['React', 'HTML', 'CSS', 'Strapi'],
+      githubUrl: 'https://github.com/LorisMueller/CropScout.git',
+      liveUrl: 'https://cropscout.netlify.app/'
+    },
   ];
 
   return (
@@ -50,7 +50,7 @@ const Index = () => {
               <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Briefcase className="w-6 h-6 text-secondary" />
               </div>
-              <h3 className="text-2xl font-bold text-secondary mb-2">1+</h3>
+              <h3 className="text-2xl font-bold text-secondary mb-2">2+</h3>
               <p className="text-muted-foreground">Years Experience</p>
             </Card>
 

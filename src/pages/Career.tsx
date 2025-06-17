@@ -59,7 +59,7 @@ const Career = () => {
       achievements: [
         'Graduated with an overall grade of 5.3 (on a 6-point Swiss grading scale)',
         'Final thesis on the effect of caffeine in sports awarded a grade of 5.7',
-        'Thesis recognized as one of the best in the graduating class'
+        'Thesis recognized as one of the best in the graduating year'
       ]
     }    
   ];
