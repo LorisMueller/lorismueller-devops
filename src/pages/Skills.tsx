@@ -1,11 +1,14 @@
 
 import Navigation from '@/components/Navigation';
 import { Card } from '@/components/ui/card';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Skills = () => {
+  const { t } = useLanguage();
+  
   const skillCategories = [
     {
-      title: 'DevOps & Infrastructure',
+      title: t('skills.devops'),
       color: 'primary',
       skills: [
         { name: 'Docker', level: 55 },
@@ -16,7 +19,7 @@ const Skills = () => {
       ]
     },
     {
-      title: 'Frontend Development',
+      title: t('skills.frontend'),
       color: 'secondary',
       skills: [
         { name: 'React', level: 80 },
@@ -28,7 +31,7 @@ const Skills = () => {
       ]
     },
     {
-      title: 'Backend Development',
+      title: t('skills.backend'),
       color: 'primary',
       skills: [
         { name: 'SQL', level: 70 },
@@ -49,12 +52,10 @@ const Skills = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16 animate-slide-up">
             <h1 className="text-5xl font-bold mb-6">
-              My <span className="text-gradient">Skills</span>
+              {t('skills.title').split(' ')[0]} <span className="text-gradient">{t('skills.title').split(' ')[1]}</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A comprehensive overview of my technical expertise across DevOps, 
-              infrastructure automation, and fullstack development. Built through 
-              years of hands-on experience and continuous learning.
+              {t('skills.subtitle')}
             </p>
           </div>
 
@@ -99,7 +100,7 @@ const Skills = () => {
           {/* Certifications Section */}
           <div className="mt-16">
             <h2 className="text-3xl font-bold text-center mb-12">
-              Certifications & <span className="text-gradient">Education</span>
+              {t('skills.certifications').split(' & ')[0]} & <span className="text-gradient">{t('skills.certifications').split(' & ')[1]}</span>
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -107,8 +108,8 @@ const Skills = () => {
                 <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
                   <span className="text-secondary font-bold">Sec</span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">Jr Penetration Tester - tryhackme</h3>
-                <p className="text-muted-foreground text-sm">a professional, hands-on certification that demonstrates real-world penetration testing skills and is recognized by top cybersecurity employers</p>
+                <h3 className="text-lg font-semibold mb-2">{t('skills.cert.security')}</h3>
+                <p className="text-muted-foreground text-sm">{t('skills.cert.description')}</p>
               </Card>
             </div>
           </div>

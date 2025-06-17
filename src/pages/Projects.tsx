@@ -1,8 +1,11 @@
 
 import Navigation from '@/components/Navigation';
 import ProjectCard from '@/components/ProjectCard';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Projects = () => {
+  const { t } = useLanguage();
+  
   const projects = [
     {
       id: 'api-onboarding-automation',
@@ -54,12 +57,10 @@ const Projects = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16 animate-slide-up">
             <h1 className="text-5xl font-bold mb-6">
-              My <span className="text-gradient">Projects</span>
+              {t('projects.title').split(' ')[0]} <span className="text-gradient">{t('projects.title').split(' ')[1]}</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A comprehensive showcase of my work in DevOps, infrastructure automation,
-              fullstack development, and cloud solutions. Each project represents a unique
-              challenge and innovative solution.
+              {t('projects.subtitle')}
             </p>
           </div>
 
