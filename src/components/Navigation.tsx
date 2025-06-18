@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useLanguage } from '@/contexts/LanguageContext';
-import LanguageSwitcher from './LanguageSwitcher';
 import {
   Sheet,
   SheetContent,
@@ -15,7 +13,6 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +24,12 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { path: '/', label: t('nav.home') },
-    { path: '/about', label: t('nav.about') },
-    { path: '/career', label: t('nav.career') },
-    { path: '/projects', label: t('nav.projects') },
-    { path: '/skills', label: t('nav.skills') },
-    { path: '/contact', label: t('nav.contact') },
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/career', label: 'Career' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/skills', label: 'Skills' },
+    { path: '/contact', label: 'Contact' },
   ];
 
   return (
@@ -71,11 +68,9 @@ const Navigation = () => {
                 )}
               </Link>
             ))}
-            <LanguageSwitcher />
           </div>
 
-          <div className="md:hidden flex items-center space-x-2">
-            <LanguageSwitcher />
+          <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <button className="text-foreground/80 hover:text-primary transition-colors">

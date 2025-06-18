@@ -1,12 +1,11 @@
+
 import Navigation from '@/components/Navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Mail, User } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useEffect, useRef, useState } from 'react';
 
 const Contact = () => {
-  const { t } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const [isHovered, setIsHovered] = useState(false);
@@ -176,10 +175,11 @@ const Contact = () => {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16 animate-slide-up">
               <h1 className="text-5xl font-bold mb-6">
-                {t('contact.title').split(' ')[0]} {t('contact.title').split(' ')[1]} <span className="text-gradient">{t('contact.title').split(' ')[2]}</span>
+                Get In <span className="text-gradient">Touch</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                {t('contact.subtitle')}
+                Ready to discuss your next project? I'd love to hear about your challenges
+                and explore how we can work together to build something amazing.
               </p>
             </div>
 
@@ -205,12 +205,13 @@ const Contact = () => {
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold">{t('contact.email')}</h3>
+                      <h3 className="text-lg font-semibold">Email</h3>
                       <p className="text-muted-foreground">lorismueller_business@protonmail.com</p>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    {t('contact.email.description')}
+                    I typically respond to emails within 24 hours. Feel free to reach out
+                    for project inquiries, collaboration opportunities, or just to say hello.
                   </p>
                 </Card>
 
@@ -220,8 +221,8 @@ const Contact = () => {
                       <User className="w-6 h-6 text-secondary" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold">{t('contact.social')}</h3>
-                      <p className="text-muted-foreground">{t('contact.social.description')}</p>
+                      <h3 className="text-lg font-semibold">Social Media</h3>
+                      <p className="text-muted-foreground">Connect with me online</p>
                     </div>
                   </div>
                   <div className="flex space-x-4">
@@ -247,14 +248,15 @@ const Contact = () => {
                 </Card>
 
                 <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 border-border/20">
-                  <h3 className="text-lg font-semibold mb-2">{t('contact.cta.title')}</h3>
+                  <h3 className="text-lg font-semibold mb-2">Let's Build Something Great</h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    {t('contact.cta.description')}
+                    Whether you need DevOps consulting, infrastructure automation,
+                    or fullstack development, I'm here to help bring your ideas to life.
                   </p>
                   <div className="flex space-x-2 text-xs text-muted-foreground">
-                    <span>{t('contact.cta.available')}</span>
+                    <span>💼 Available for freelance</span>
                     <span>•</span>
-                    <span>{t('contact.cta.remote')}</span>
+                    <span>🚀 Remote-friendly</span>
                   </div>
                 </Card>
               </div>
